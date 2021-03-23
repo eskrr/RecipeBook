@@ -1,0 +1,102 @@
+[
+	{
+		"id": 1,
+		"name": "Falafel",
+		"description": "Learn how to make falafel with this easy homemade falafel recipe.  It’s bursting with zesty fresh fresh flavors, lightly pan-fried (instead of deep-fried), and perfect for falafel wraps, salads and other favorite dishes.",
+		"author": "Sebastian Esquer Gaitan",
+		"ingredientes": [
+			{
+				"name": "1 can Chickpeas, rinsed and drained",
+				"quantity": "15",
+				"unit": "ounce"
+			},
+			{
+				"name": "Parsley leaves",
+				"quantity": "1",
+				"unit": "cup"
+			},
+			{
+				"name": "Cilantro leaves",
+				"quantity": "1",
+				"unit": "cup"
+			},
+			{
+				"name": "Flour (any kind)",
+				"quantity": "1/3",
+				"unit": "cup"
+			},
+			{
+				"name": "Fresh lemon juice",
+				"quantity": "1",
+				"unit": "tablespoon"
+			},
+			{
+				"name": "Baking powder",
+				"quantity": "1 1/2",
+				"unit": "ounce"
+			},
+			{
+				"name": "Ground powder",
+				"quantity": "1 1/2",
+				"unit": "ounce"
+			},
+			{
+				"name": "Fine sea salt",
+				"quantity": "1",
+				"unit": "teaspoon"
+			},
+			{
+				"name": "Black ppper",
+				"quantity": "1/2",
+				"unit": "teaspoon"
+			},
+			{
+				"name": "Garlic cloves",
+				"quantity": "6",
+				"unit": "pieces"
+			},
+			{
+				"name": "High heat oil",
+				"quantity": "4-6",
+				"unit": "tablespoon"
+			}
+		],
+		"steps": [
+			{
+				"description": "Add chickpeas, cilantro, parsley, onion, flour, lemon juice, baking powder, cumin, salt, black pepper and garlic to a food processor.  Pulse until the mixture reaches a coarse crumb texture, stopping partway through to scrape down the sides of the bowl if needed.  Transfer mixture to a sealed container and refrigerate for 1-2 hours or until chilled.",
+				"image": "https://www.gimmesomeoven.com/wp-content/uploads/2015/04/How-To-Make-Falafel-Recipe-4-1100x1626.jpg"
+			},
+			{
+				"description": "Lay a large sheet of parchment paper on a work surface.  Using a spoon or a medium cookie scoop, measure out 2 tablespoons of the dough and roll it into a ball with your hands.  Place the ball on the parchment paper, and gently flatten it slightly with your hand so that it is about 1/2-inch thick.  Repeat with the remaining dough until all of the falafel disks are prepared.",
+				"image": "https://www.gimmesomeoven.com/wp-content/uploads/2015/04/How-To-Make-Falafel-Recipe-6-1100x1650.jpg"
+			},
+			{
+				"description": "Heat oil in a large cast-iron or heavy-bottomed skillet over medium-high heat until it is shimmering.  Carefully transfer 4 or 5 falafel disks to the hot oil and fry for 2-3 minutes per side, or until both sides of the disk are browned.  Transfer to a paper-towel lined plate to drain.  Repeat with the remaining falafel disks, adding extra oil to the pan if need be.",
+				"image": ""
+			},
+			{
+				"description": "Serve the falafels immediately while they are warm and crispy.  Or freeze in a sealed container for up to 3 months. Recommendations for serving are pita bread, chopped lettuce, sliced red oinons and sliced tomatoes.",
+				"image": "https://www.gimmesomeoven.com/wp-content/uploads/2015/04/How-To-Make-Falafel-Recipe-1-1100x1650.jpg"
+			}
+		]
+	},
+	{
+		"id": 2,
+		"name": "",
+		"description": "",
+		"author": "",
+		"ingredientes": [
+			{
+				"name": "",
+				"quantity": "",
+				"unit": ""
+			}
+		],
+		"steps": [
+			{
+				"description": "",
+				"image": ""
+			}
+		],
+	}
+]
