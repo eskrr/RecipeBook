@@ -161,21 +161,73 @@
 	},
 	{
 		"id": 3,
-		"name": "",
-		"description": "",
-		"author": "",
+		"name": "Hot Dog Chili",
+		"description": "This HOT DOG CHILI is the perfect topping for hot dogs. The beef is so tender and the sauce is slightly sweet. We top our dogs off with this chili sauce, shredded cheddar, and a sprinkling of yellow onions. The perfect hot dog, if you ask me!",
+		"author": "Gerardo Ángeles Hernández",
 		"ingredientes": [
 			{
-				"name": "",
-				"quantity": "",
-				"unit": ""
-			}
+				"name": "lean ground beef",
+				"quantity": "1",
+				"unit": "pound"
+			},
+            {
+                "name": "beef broth",
+                "quantity": "1/2",
+                "unit": "cup"
+            },
+            {
+                "name": "tomato sauce",
+                "quantity": "8",
+                "unit": "ounces"
+            },
+            {
+                "name": "ketchup",
+                "quantity": "1/2",
+                "unit": "cup"
+            },
+            {
+                "name": "chili powder",
+                "quantity": "1",
+                "unit": "tablespoon"
+            },
+            {
+                "name": "onion powder",
+                "quantity": "1",
+                "unit": "teaspoon"
+            },
+            {
+                "name": "garlic powder",
+                "quantity": "1",
+                "unit": "teaspoon"
+            },
+            {
+                "name": "salt",
+                "quantity": "1/2",
+                "unit": "teaspoon"
+            },
+            {
+                "name": "cumin",
+                "quantity": "1",
+                "unit": "teaspoon"
+            }
 		],
 		"steps": [
 			{
-				"description": "",
+				"description": "Add the beef and beef broth to a deep skillet over medium heat and use a fork to break the meat into small pieces, smashing the meat with the fork to create a finer texture than a traditional ground meat.",
 				"image": ""
-			}
+			},
+            {
+                "description": "Add the remaining ingredients to the skillet with the beef and bring to a boil. Reduce to a simmer and cook for 20 minutes or until chili has thickened to your liking.",
+                "image": ""
+            },
+            {
+                "description": "Serve over hot dogs.",
+                "image": ""
+            },
+            {
+                "description": "Enjoy.",
+                "image": ""
+            }
 		],
 	}
 ]
