@@ -4,7 +4,9 @@
 		"name": "Falafel",
 		"description": "Learn how to make falafel with this easy homemade falafel recipe.  It’s bursting with zesty fresh fresh flavors, lightly pan-fried (instead of deep-fried), and perfect for falafel wraps, salads and other favorite dishes.",
 		"author": "Sebastian Esquer Gaitan",
-		"ingredientes": [
+		"author_id": 1,
+		"created_at": 873331200,
+		"ingredients": [
 			{
 				"name": "1 can Chickpeas, rinsed and drained",
 				"quantity": "15",
@@ -85,7 +87,9 @@
 		"name": "Souffle Omelette",
 		"description": "The fluffiest omelette you’ll ever try, this luxurious dish is filled with rich cauliflower cheese. We’re sold on this for soufflé omelette brunch, lunch or dinner. Don't forget to screenshot the ingredients list at the bottom before you go shopping!",
 		"author": "Diego del Valle",
-		"ingredientes": [
+		"author_id": 2,
+		"created_at": 1616555767,
+		"ingredients": [
 			{
 				"name": "small cauliflower",
 				"quantity": "1",
@@ -176,6 +180,6 @@
 				"description": "",
 				"image": ""
 			}
-		],
+		]
 	}
 ]
