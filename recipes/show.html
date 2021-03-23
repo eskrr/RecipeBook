@@ -2,8 +2,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<link rel="stylesheet" href="../css/application.css">
+		<link rel="stylesheet" href="/css/application.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="js/show.js"></script>
 		<title>RecipeBook</title>
 	</head>
 	<body class="bgcolor-secondary">
@@ -17,37 +19,31 @@
 		</header>
 		<main class="m-4">
 			<div class="d-flex">
-				<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="profile-pic border rounded-circle m-4">
+				<a id="recipeAuthorImage">
+					<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="profile-pic border rounded-circle m-4">
+				</a>
 				<div class="">
-					<h1>Falafel</h1>
-					<strong>By: Sebastian Esquer Gaitan</strong><br>
-					<small>03/04/97</small>
+					<h1 id="recipeName"></h1>
+					<strong>By: <span id="recipeAuthorName"></span></strong><br>
+					<small id="recipeCreatedAt"></small>
 				</div>
 			</div>
-			<p class="mt-5">
-				Learn how to make falafel with this easy homemade falafel recipe.  It’s bursting with zesty fresh fresh flavors, lightly pan-fried (instead of deep-fried), and perfect for falafel wraps, salads and other favorite dishes.
-			</p>
+			<p class="mt-5" id="recipeDescription"></p>
 			<h3>Ingredients:</h3>
-			<ul>
-				<li>Parsley leaves: 1 cup</li>
-				<li>Cilantro leaves: 1 cup</li>
-				<li>Flour: 1 cup</li>
+			<ul id="recipeIngredients">
 			</ul>
 			<h3>Steps:</h3>
-			<ol>
-				<div class="d-flex mt-4">
-					<li>
-						Add chickpeas, cilantro, parsley, onion, flour, lemon juice, baking powder, cumin, salt, black pepper and garlic to a food processor.  Pulse until the mixture reaches a coarse crumb texture, stopping partway through to scrape down the sides of the bowl if needed.  Transfer mixture to a sealed container and refrigerate for 1-2 hours or until chilled.
-					</li>
-					<img class="w-25 border rounded" src="https://www.gimmesomeoven.com/wp-content/uploads/2015/04/How-To-Make-Falafel-Recipe-4-1100x1626.jpg">
-				</div>
-				<div class="d-flex mt-4">
-					<li>
-						Lay a large sheet of parchment paper on a work surface.  Using a spoon or a medium cookie scoop, measure out 2 tablespoons of the dough and roll it into a ball with your hands.  Place the ball on the parchment paper, and gently flatten it slightly with your hand so that it is about 1/2-inch thick.  Repeat with the remaining dough until all of the falafel disks are prepared.
-					</li>
-					<img class="w-25 border rounded" src="https://www.gimmesomeoven.com/wp-content/uploads/2015/04/How-To-Make-Falafel-Recipe-6-1100x1650.jpg">
-				</div>
+			<ol id="recipeSteps">
 			</ol>
 		</main>
 	</body>
+	</html>
+	<template id="stepTemplate">
+		<div class="d-flex mt-4">
+			<li id="stepDescription">
+			</li>
+			<div id="stepImage">
+			</div>
+		</div>
+	</template>
 </html>
