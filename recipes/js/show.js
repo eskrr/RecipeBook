@@ -20,6 +20,7 @@ $(document).ready(function() {
     
       $('#recipeName').text(recipe.name);
       $('#recipeAuthorName').text(recipe.author);
+      $('#recipeAuthorImage').attr('href', `/user/show.html?=${recipe.author_id}`)
       $('#recipeDescription').text(recipe.description);
       $('#recipeCreatedAt').text(parseDate(recipe.created_at));
 
