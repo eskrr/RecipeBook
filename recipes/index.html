@@ -5,6 +5,30 @@
 		<link rel="stylesheet" href="../css/application.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<title>RecipeBook</title>
+		<script>
+			window.onload =  async function getRecipes(){
+				let response = await fetch("recipes.json")
+        		let data = await response.json()
+				console.log(data)
+				var content = "";
+				//content += '<div class="card-columns">'
+				data.forEach(x => {
+					//content += '<div class="col-md-3 col-sm-12">'
+					content += '<div class="card m-2">'
+					content += '<div class="card-header"><h1>' + x.name + '</h1></div>'
+					content += '<div class="card-body">'
+					content += '<p><strong>By: ' + x.author + '</strong></p>'
+					content += '<p>Desc: ' + x.description + '</p>'
+					content += '</div>'
+					content += '<a type="button" href= "/recipes/show.html?id='+ x.id+'"  class="btn btn-primary btn-lg">Ver Receta</a>'
+					content += '</div>'
+					content += "<br>"
+					//content += '</div>'
+				})
+				//content += '</div>'
+				document.getElementById("recipeDisp").innerHTML = content;
+			}
+		</script>
 	</head>
 	<body class="bgcolor-secondary">
 		<header class="bgcolor-primary">
@@ -16,6 +40,10 @@
 			</nav>
 		</header>
 		<main class="m-4">
+			<div class="d-flex">
+				<div class="row" id="recipeDisp">
+				</div>
+			</div>
 		</main>
 	</body>
 </html>
