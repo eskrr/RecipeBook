@@ -5,6 +5,9 @@
 
 .bgcolor-secondary {
 	background-color: #E2C2C6;
+	background-image: url("../images/comidaBackground.jpeg");
+	background-repeat: no-repeat;
+	background-position-x: center;
 }
 
 .profile-pic {
@@ -19,4 +22,29 @@
 
 .clickable {
 	cursor: pointer;
+}
+
+#titleAbout{
+	color: aliceblue;
+	font-size: 10em;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+	-webkit-text-stroke: 2.5px rgba(0, 0, 0, 0.8);
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#infoAbout{
+	margin-top: 1070px;
+}
+
+.subTitleAbout{
+	font-weight: bolder;
+}
+
+.parrAbout{
+padding: 2em;
 }
