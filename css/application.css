@@ -21,33 +21,42 @@
 	cursor: pointer;
 }
 
-#container{
+.secciones{
 	display: -webkit-flex;
     display: flex;
     position:relative;
     margin-left: auto;
     margin-right: auto;
-    max-width: 100%;
-    border-radius: 15px;
-    padding: 2px;
+    max-width: 95%;
+	max-height: 95%;
+	
 }
 
-#titleAndSubtitle{
+.container{
 	position: relative;
     -webkit-flex: 1;
     flex: 1;
-    border-radius: 15px;
-    margin: 5px;
+	background-color: beige;
+	padding: 1em;
+	margin: 1em;
 }
 
-#imgVariasRecetas{
+#titleHome{
+	text-align: center;
+}
+
+.imgHome{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
-	height: 60%;
+    width: 40%;
+	height: 40%;
 }
 
 #footerId{
+	text-align: center;
+}
+
+div div h2, div div p{
 	text-align: center;
 }
