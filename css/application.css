@@ -77,3 +77,58 @@
 		margin: 1em;
 	}
 }
+
+#titleAbout{
+	color: aliceblue;
+	font-size: 10em;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+	-webkit-text-stroke: 2.5px rgba(0, 0, 0, 0.8);
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#infoAbout{
+	margin-top: 1070px;
+	display: -webkit-flex;
+    display: flex;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 95%;
+    border-radius: 15px;
+    padding: 2px;
+}
+
+.subTitleAbout{
+	font-weight: bolder;
+}
+
+.parrAbout{
+padding: 1em;
+}
+
+.divHoriz{
+	position: relative;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.objetivoImg{
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 80%;
+	max-height: 80%;
+	margin: 1em;
+}
+
+#imageBG {
+	background-color: #E2C2C6;
+	background-image: url("../images/comidaBackground.jpeg");
+	background-repeat: no-repeat;
+	background-position-x: center;
+}
