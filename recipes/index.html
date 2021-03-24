@@ -12,22 +12,32 @@
         		let data = await response.json()
 				console.log(data)
 				var content = "";
-				//content += '<div class="card-columns">'
 				data.forEach(x => {
-					//content += '<div class="col-md-3 col-sm-12">'
-					content += '<div class="card m-2">'
-					content += '<div class="card-header"><h1>' + x.name + '</h1></div>'
-					content += '<div class="card-body">'
-					content += '<p><strong>By: ' + x.author + '</strong></p>'
-					content += '<p>Desc: ' + x.description + '</p>'
-					content += '</div>'
-					content += '<a type="button" href= "/recipes/show.html?id='+ x.id+'"  class="btn btn-primary btn-lg">Ver Receta</a>'
-					content += '</div>'
-					content += "<br>"
-					//content += '</div>'
-				})
-				//content += '</div>'
+					content += `
+						<div class="border border-white rounded w-100 mt-4 p-2">
+							<div class="d-flex">
+								<a id="recipeAuthorImage">
+									<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="profile-pic border rounded-circle m-4">
+								</a>
+								<div class="">
+									<a href="/recipes/show.html?id=${x.id}">
+										<h3 id="recipeName">${x.name}</h3>
+									</a>
+									<strong>By: <span id="recipeAuthorName">${x.author}</span></strong><br>
+									<small id="recipeCreatedAt">${parseDate(x.created_at)}</small>
+								</div>
+							</div>
+							<p class="m-2" id="recipeDescription">${x.description}</p>
+						</div>
+					`
+				});
 				document.getElementById("recipeDisp").innerHTML = content;
+			}
+
+			var parseDate = function parseDate(timestamp) {
+			  var date = new Date(timestamp * 1000);
+			  console.log(date);
+			  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 			}
 		</script>
 	</head>
