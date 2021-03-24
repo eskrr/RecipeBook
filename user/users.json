@@ -1,12 +1,17 @@
 {
-    "nombre" : "Diego del Valle",
-    "nacimiento" : "26/08/2000",
-    "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur placerat, velit quis pulvinar iaculis, nisi nunc iaculis purus, eget consectetur leo mi non quam.",
-    "correo": "diegodelvalle2000@gmail.com",
-    "imgURL": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
-    "recetas": [
+    "name" : "Diego del Valle",
+    "birthdate" : "26/08/2000",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur placerat, velit quis pulvinar iaculis, nisi nunc iaculis purus, eget consectetur leo mi non quam.",
+    "email": "diegodelvalle2000@gmail.com",
+    "image": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+    "recipes": [
         {
-            "nombreReceta": "Souffle Omelette"
+            "id": 2,
+            "name": "Souffle Omelette"
+        },
+        {
+            "id": 1,
+            "name": "Falafel"
         }
     ]
 }
