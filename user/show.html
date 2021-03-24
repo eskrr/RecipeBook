@@ -6,6 +6,25 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<title>RecipeBook</title>
+		<script>
+			window.onload =  async function getRecipes(){
+				let response = await fetch("users.json")
+        		let data = await response.json()
+				console.log(data)
+				var content = "";
+				document.getElementById("imgDiv").innerHTML = '<img src="'+ data.imgURL+'" class="img-thumbnail"></img>'
+				content += "<h1>"+ data.nombre + "</h1>";
+				content += "<h3>"+ data.nacimiento + "</h3>";
+				content += "<h3>"+ data.descripcion + "</h3>";
+				content += '<h3><a href="mailto:'+ data.correo + '">' + data.correo+"</a></h3>";
+				content += "<h3>Recetas:</h3><ul>";
+				data.recetas.forEach( r => {
+					content += "<li>" + r.nombreReceta + "</li>"
+				})
+				content += "</ul>"
+				document.getElementById("contentDiv").innerHTML = content
+			}
+		</script>
 	</head>
 	<body class="bgcolor-secondary">
 		<header class="bgcolor-primary">
@@ -17,6 +36,12 @@
 			</nav>
 		</header>
 		<main class="m-4">
+			<div class="row">
+				<div class="col-sm-12 col-md-2" id="imgDiv">
+				</div>
+				<div class="col-sm-12 col-md-10" id="contentDiv">
+				</div>
+			</div>
 		</main>
 	</body>
 </html>
