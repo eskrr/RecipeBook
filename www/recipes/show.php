@@ -94,12 +94,15 @@
 				<div class="">
 					<div class="d-flex flex-row justify-content-between">
 						<h1 id="recipeName"><?php echo $receta["name"]; ?></h1>
-						<?php if($user['id'] == $receta['author_id']): ?>
-							<form action="/recipes/delete" method="post" style="margin:0px; padding:0px; display:inline;">
-								<input type="hidden" id="recipe_id" name="recipe_id" value="<?php echo $receta['id'] ?>" onsubmit="return confirm('Are you sure?');">
-								<button type="submit" class="btn btn-danger">Delete</button>
-							</form>
-						<?php endif; ?>
+						<div class="ml-5">
+							<?php if($user['id'] == $receta['author_id']): ?>
+								<form action="/recipes/delete" method="post" style="margin:0px; padding:0px; display:inline;">
+									<input type="hidden" id="recipe_id" name="recipe_id" value="<?php echo $receta['id'] ?>" onsubmit="return confirm('Are you sure?');">
+									<button type="submit" class="btn btn-danger">Delete</button>
+								</form>
+								<a class="btn btn-success" href="/recipes/edit?id=<?php echo $receta['id'] ?>" role="button">Edit</a>
+							<?php endif; ?>
+						</div>
 					</div>
 					<strong>By: <?php echo $receta["author_name"]; ?><span id="recipeAuthorName"></span></strong><br>
 					<small id="recipeCreatedAt"><?php echo $receta["created_at"]; ?></small>

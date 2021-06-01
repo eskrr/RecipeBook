@@ -6,7 +6,7 @@ $(document).ready(function() {
     console.log(totalIngredients);
     let ingredientTemplate = $(`
       <div class="ingredient border border-light rounded m-4 p-4 d-flex">
-        <div class="w-5totalSteps">
+        <div class="w-50">
           <div class="form-group d-flex">
             <label for="ingredients[${totalIngredients}][name]">Name</label>
             <input required type="text" class="form-control ml-4" id="ingredients[${totalIngredients}][name]" name="ingredients[${totalIngredients}][name]" placeholder="Ingredient name ...">

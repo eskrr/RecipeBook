@@ -111,8 +111,8 @@
 										<input type="hidden" id="recipe_id" name="recipe_id" value="<?php echo $recipe['id'] ?>" onsubmit="return confirm('Are you sure?');">
 										<button type="submit" class="btn btn-danger">Delete</button>
 									</form>
+									<a class="btn btn-success" href="/recipes/edit?id=<?php echo $recipe['id'] ?>" role="button">Edit</a>
 								<?php endif; ?>
-								<a class="btn btn-success" href="/recipes/edit?id=<?php echo $recipe['id'] ?>" role="button">Edit</a>
 							</div>
 						</div>
 					</div>
