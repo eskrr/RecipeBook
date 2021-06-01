@@ -20,42 +20,43 @@
 
 	$recipe_id = $db->insert_id;
 
-	foreach ($_POST["ingredients"] as &$ingredient) {
-		$name			= $ingredient["name"];
-		$quantity		= $ingredient["quantity"];
-		$unit			= $ingredient["unit"];
+	// foreach ($_POST["ingredients"] as &$ingredient) {
+	// 	$name			= $ingredient["name"];
+	// 	$quantity		= $ingredient["quantity"];
+	// 	$unit			= $ingredient["unit"];
 
-		$ingredientInsertQ = "INSERT INTO Ingredient (recipe_id, name, quantity, unit) VALUES ($recipe_id, '$name', '$quantity', '$unit')";
-		try {
-			query($db, $ingredientInsertQ);
-		} catch (Exception $e) {
-			$error_message = $e->getMessage();
-			header("Location: /recipes/create?error_message=$error_message");
-			exit();
-		}
-	}
+	// 	$ingredientInsertQ = "INSERT INTO Ingredient (recipe_id, name, quantity, unit) VALUES ($recipe_id, '$name', '$quantity', '$unit')";
+	// 	try {
+	// 		query($db, $ingredientInsertQ);
+	// 	} catch (Exception $e) {
+	// 		$error_message = $e->getMessage();
+	// 		header("Location: /recipes/create?error_message=$error_message");
+	// 		exit();
+	// 	}
+	// }
 
-	foreach ($_POST["steps"] as &$step) {
-		$description	= $step["description"];
-		$image_url		= $step["image_url"];
+	// foreach ($_POST["steps"] as &$step) {
+	// 	$description	= $step["description"];
+	// 	$image_url		= $step["image_url"];
 
-		$ingredientInsertQ = "INSERT INTO Step (recipe_id, description, image_url) VALUES ($recipe_id, '$description', '$image_url')";
-		try {
-			query($db, $ingredientInsertQ);
-		} catch (Exception $e) {
-			$error_message = $e->getMessage();
-			header("Location: /recipes/create?error_message=$error_message");
-			exit();
-		}
-	}
+	// 	$ingredientInsertQ = "INSERT INTO Step (recipe_id, description, image_url) VALUES ($recipe_id, '$description', '$image_url')";
+	// 	try {
+	// 		query($db, $ingredientInsertQ);
+	// 	} catch (Exception $e) {
+	// 		$error_message = $e->getMessage();
+	// 		header("Location: /recipes/create?error_message=$error_message");
+	// 		exit();
+	// 	}
+	// }
 
 	$db->close();
 	header("Location: /recipes/show?id=$recipe_id");
 	exit();
 ?>
-<?php else: ?>
+<?php elseif (isset($_GET['id'])): ?>
 <?php
 	include "../common/session.php";
+	include ("../common/query.php");
 
 	$user = getSession();
 
@@ -64,6 +65,12 @@
 		header("Location: /log_in?error_message=$error_message");
 		exit();	
 	}
+
+	$recipe_id = $_GET['id'];
+
+	echo $recipe_id;
+
+	$q = "SELECT * FROM Recipe WHERE id = $recipe_id";
 ?>
 <!DOCTYPE html>
 <html>
@@ -105,11 +112,11 @@
 				    <label for="description">Description</label>
 				    <textarea class="form-control" id="description" rows="3" name="description"></textarea>
 			    </div>
-			    <div class="d-flex">
+			    <!-- <div class="d-flex">
 			    	<h3 class="mr-4">Ingredients</h3>
 					<i id="addIngredient" data-feather="plus" class="border border-success rounded bg-success text-white clickable"></i>
-			    </div>
-			    <div id="ingredients">
+			    </div> -->
+			    <!-- <div id="ingredients">
 				    <div class="ingredient border border-light rounded m-4 p-4 d-flex">
 				    	<div class="w-50">
 							<div class="form-group d-flex">
@@ -151,7 +158,7 @@
 							<input type="url" class="form-control ml-4" id="steps[0][image_url]" name="steps[0][image_url]" placeholder="www.image.com/image.png">
 						</div>
 				    </div>
-				</div>
+				</div> -->
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</main>
@@ -160,4 +167,10 @@
       feather.replace()
     </script>
 </html>
+<?php else: ?>
+<?php
+	$error_message = "Url invalido.";
+	header("Location: /?error_message=$error_message");
+	exit();
+?>
 <?php endif; ?>

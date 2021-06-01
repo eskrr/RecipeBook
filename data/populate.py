@@ -14,7 +14,7 @@ from mysql.connector import Error
 
 insert_query = "INSERT INTO {} ({}) VALUES ({})"
 
-user_cols = ["name", "description", "email", "password"]
+user_cols = ["name", "description", "email", "password", "image_url"]
 recipe_cols = ["author_id", "name", "description"]
 ingredient_cols = ["recipe_id", "name", "quantity", "unit"]
 step_cols = ["recipe_id", "description", "image_url"]

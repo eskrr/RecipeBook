@@ -3,6 +3,7 @@ CREATE TABLE User (
 	name VARCHAR(30) NOT NULL,
 	description VARCHAR(200) NOT NULL,
 	email VARCHAR(30) NOT NULL UNIQUE,
+	image_url VARCHAR(200) NOT NULL,
 	password VARCHAR(64) NOT NULL
 );
 

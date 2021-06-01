@@ -1,24 +1,34 @@
-<?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
-	<?php
-	include 'query.php';
+<?php
+	include_once 'common/session.php';
+	$uid = getSession();
+?>
+<?php if($uid): ?>
+<?php
+	header("Location: /user/show");
+	exit();
+?>
+<?php elseif($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
+<?php
+	include_once 'common/query.php';
+
+	$conn = db();
 
 	$query = sprintf('SELECT id, email, password FROM User WHERE email = "%s"', $_POST['email']);
 
-	if ($result = query($query)) {
-		echo 'HAY RESULTADO: ';
+	if ($result = query($conn, $query)) {
 		if ($row = $result->fetch_assoc()) {
 			$pw = hash_hmac('SHA256', $_POST['password'], $_POST['email']);
-			//$pw = hash('sha256', $_POST['password']);
 			if ($pw == $row['password'] && $_POST['email'] == $row['email']) {
-				echo 'CORRECTO';
+				$conn->close();
+				header("Location: /recipes/index");
+				saveSession($_POST['email'], $_POST['password']);
 				exit();
 			}
-	       // printf ("%s (%s)\n", $row["email"], $row["password"]);
 	    }
-		// liberar el conjunto de resultados */
-		// $result->close();
 	}
-	echo 'NO';
+	$error_message = "Error logging in, please verify credentials.";
+	header("Location: /log_in?error_message=$error_message");
+	exit();
 ?>
 <?php else: ?>
 <!DOCTYPE html>
@@ -48,13 +58,23 @@
 	<body class="bgcolor-secondary">
 		<header class="bgcolor-primary">
 			<nav class="navbar navbar-light bgcolor-primary justify-content-between">
-				<a class="navbar-brand" href="/home.html">RecipeBook</a>
+				<a class="navbar-brand" href="/">RecipeBook</a>
 				<div class="d-flex">
-					<a class="nav-link nav-item" href="/user/create.html">Sign up</a>
-					<a class="nav-link nav-item" href="/log_in.html">Log in</a>
-					<a class="nav-link nav-item" href="/about.html">About</a>
+					<a class="nav-link nav-item" href="/sign_up">Sign up</a>
+					<a class="nav-link nav-item" href="/log_in">Log in</a>
+					<a class="nav-link nav-item" href="/about">About</a>
 				</div>
 			</nav>
+			<?php if (isset($_GET['error_message'])): ?>
+				<div class="alert alert-warning" role="alert">
+					<?php echo $_GET['error_message'] ?>
+				</div>
+			<?php endif; ?>
+			<?php if (isset($_GET['success_message'])): ?>
+				<div class="alert alert-success" role="alert">
+					<?php echo $_GET['success_message'] ?>
+				</div>
+			<?php endif; ?>
 		</header>
 		<main class="m-4">
 			<form class="border border-light" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">

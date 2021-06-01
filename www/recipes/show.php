@@ -1,11 +1,21 @@
 <?php if(isset($_GET['id'])): ?>
 <?php
-	include("../query.php");
-	//echo 'si HAY ID: ', $_GET['id'];
+	include("../common/query.php");
+	include "../common/session.php";
+
+	$user = getSession();
+
+	if (!$user) {
+		$error_message = "Please log in.";
+		header("Location: /log_in?error_message=$error_message");
+		exit();	
+	}
+
+	$db = db();
 	
 	//Declaración de variables
 	$auxId = $_GET['id'];
-	$queryRecipe = "SELECT Recipe.id, Recipe.name, Recipe.created_at, Recipe.description, User.name AS 'author_name' FROM Recipe INNER JOIN User ON Recipe.author_id = User.id where Recipe.id = $auxId";
+	$queryRecipe = "SELECT Recipe.author_id, Recipe.id, Recipe.name, Recipe.created_at, Recipe.description, User.name AS 'author_name' FROM Recipe INNER JOIN User ON Recipe.author_id = User.id where Recipe.id = $auxId";
 	$receta = array();
 	$autor = array();
 	$ingredientes = array();
@@ -67,10 +77,13 @@
 	<body class="bgcolor-secondary">
 		<header class="bgcolor-primary">
 			<nav class="navbar navbar-light bgcolor-primary justify-content-between">
-				<a class="navbar-brand" href="/recipes/index.html">RecipeBook</a>
-				<a href="/user/show.html">
-					<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="profile-pic border rounded-circle">
-				</a>
+				<a class="navbar-brand" href="/recipes/index">RecipeBook</a>
+				<div class="d-flex">
+					<a href="/user/show?id=<?php echo $user['id'] ?>">	
+						<img src="<?php echo $user['image_url'] ?>" class="profile-pic border rounded-circle">
+					</a>
+					<a class="nav-link nav-item mt-2" href="/log_out">Log out</a>
+				</div>
 			</nav>
 		</header>
 		<main class="m-4">
@@ -79,7 +92,15 @@
 					<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="profile-pic border rounded-circle m-4">
 				</a>
 				<div class="">
-					<h1 id="recipeName"><?php echo $receta["name"]; ?></h1>
+					<div class="d-flex flex-row justify-content-between">
+						<h1 id="recipeName"><?php echo $receta["name"]; ?></h1>
+						<?php if($user['id'] == $receta['author_id']): ?>
+							<form action="/recipes/delete" method="post" style="margin:0px; padding:0px; display:inline;">
+								<input type="hidden" id="recipe_id" name="recipe_id" value="<?php echo $receta['id'] ?>" onsubmit="return confirm('Are you sure?');">
+								<button type="submit" class="btn btn-danger">Delete</button>
+							</form>
+						<?php endif; ?>
+					</div>
 					<strong>By: <?php echo $receta["author_name"]; ?><span id="recipeAuthorName"></span></strong><br>
 					<small id="recipeCreatedAt"><?php echo $receta["created_at"]; ?></small>
 				</div>
@@ -104,8 +125,6 @@
 
 							</div>
 						<?php endif; ?>
-						
-
 					</div>
 			<?php endwhile; ?>
 			</ol>
@@ -133,8 +152,8 @@
 						</div>
 					<?php endwhile; ?>
 			<form class="border border-light p-4 mt-5" action="/ratings/create.php" method="post">
-				<input type="hidden" name="author_id" id="author_id" value="1">
-				<input type="hidden" name = "recipe_id" id="recipe_id" value="1">
+				<input type="hidden" name="author_id" id="author_id" value="<?php echo $user['id'];?>">
+				<input type="hidden" name = "recipe_id" id="recipe_id" value="<?php echo $auxId; ?>">
 				<h3>Leave a Rating</h3>
 				<h2 id = "confirmationRating"></h2>
 				<div class="form-group">
@@ -159,11 +178,7 @@
 					<label class="form-check-label" for="inlineRadio2">4</label>
 				</div>
 				<div class="form-check form-check-inline">
-<<<<<<< Updated upstream
 					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="5" checked>
-=======
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="5">
->>>>>>> Stashed changes
 					<label class="form-check-label" for="inlineRadio2">5</label>
 				</div>
 				<div class="center">

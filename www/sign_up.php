@@ -1,26 +1,33 @@
 <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
-	<?php
-		include ("query.php");
+<?php
+	include ("common/query.php");
 
-		$nombre			= $_POST["nombre"];
-		$description	= $_POST["description"];
-		$email       	= $_POST["email"];
-		$password  		= $_POST["password"];
+	$db = db();
 
-		//Se utiliza el correo como salt para que la encripcion sea unica.
-		$hash = hash_hmac('SHA256', $password, $email);
+	$nombre			= $_POST["nombre"];
+	$description	= $_POST["description"];
+	$email       	= $_POST["email"];
+	$password  		= $_POST["password"];
+	$image_url  		= $_POST["image_url"];
 
-		$consulta = "INSERT INTO User (`name`, `description`, `email`, `password`) VALUES ('$nombre', '$description', '$email', '$hash')";
+	//Se utiliza el correo como salt para que la encripcion sea unica.
+	$hash = hash_hmac('SHA256', $password, $email);
 
-		try {
-			$result = query($consulta);
-			if($result)
-				echo "<br><br> Datos guardados.";
-		} catch (Exception $e) {
-			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-		}
+	$consulta = "INSERT INTO User (`name`, `description`, `email`, `password`, `image_url`) VALUES ('$nombre', '$description', '$email', '$hash', '$image_url')";
 
-	?>
+	try {
+		$result = query($db, $consulta);
+	} catch (Exception $e) {
+		$error_message = $e->getMessage();
+		header("Location: /sign_up?error_message=$error_message");
+		exit();
+	}
+
+	$db->close();
+	$success_message = "Usuario creado correctamente.";
+	header("Location: /log_in?success_message=$success_message");
+	exit();
+?>
 <?php else: ?>
 <!DOCTYPE html>
 <html>
@@ -76,13 +83,18 @@
 	<body class="bgcolor-secondary">
 		<header class="bgcolor-primary">
 			<nav class="navbar navbar-light bgcolor-primary justify-content-between">
-				<a class="navbar-brand" href="/home.html">RecipeBook</a>
+				<a class="navbar-brand" href="/">RecipeBook</a>
 				<div class="d-flex">
-					<a class="nav-link nav-item" href="/user/create.html">Sign up</a>
-					<a class="nav-link nav-item" href="/log_in.html">Log in</a>
-					<a class="nav-link nav-item" href="/about.html">About</a>
+					<a class="nav-link nav-item" href="/sign_up">Sign up</a>
+					<a class="nav-link nav-item" href="/log_in">Log in</a>
+					<a class="nav-link nav-item" href="/about">About</a>
 				</div>
 			</nav>
+			<?php if (isset($_GET['error_message'])): ?>
+				<div class="alert alert-warning" role="alert">
+					<?php echo $_GET['error_message'] ?>
+				</div>
+			<?php endif; ?>
 		</header>
 		<main class="m-4">
 			<form class="border border-light" id="signUpForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -114,11 +126,11 @@
 					<label for="password_confirmation">Confirm Password</label>
 					<input type="password" class="form-control"  name="password_confirmation" placeholder="Password" onchange='check_pass();'>
 				</div>
-				<span id='message'></span>
-				<!-- <div class="form-group">
-					<label for="image">Choose Profile Picture</label>
-					<input type="file" accept="image/*" class="form-control-file" id="image">
-				</div> -->
+				<!-- <span id='message'></span> -->
+				<div class="form-group">
+					<label for="image_url">Image</label>
+					<input required type="url" class="form-control" id="image_url" name="image_url" placeholder="www.image.com/image.png">
+				</div>
 				<div class="center">
 					<br><br><br><button type="submit" class="btn btn-primary">Submit</button>
 				</div>

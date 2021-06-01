@@ -1,5 +1,7 @@
 <?php
-include('../query.php');
+    include('../common/query.php');
+
+    $db = db();
 
     $description=   $_POST['exampleFormControlTextarea1'];
     $value=         $_POST['inlineRadioOptions'];
@@ -8,10 +10,8 @@ include('../query.php');
 
     $sql = "INSERT INTO `Rating`(`value`, `recipe_id`, `user_id`, `description`) VALUES ($value, $recipeID, $userID, '$description')";
 
-    echo $sql;
-
     try {
-        $result = query($sql);
+        $result = query($db, $sql);
         header("Location: /recipes/show?id=$recipeID");
         exit();
     } catch (Exception $e) {
@@ -19,6 +19,5 @@ include('../query.php');
         header("Location: /?error_message=$error_message");
 	    exit();
     }
-
 ?>
 

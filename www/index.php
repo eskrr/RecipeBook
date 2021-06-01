@@ -1,3 +1,7 @@
+<?php
+	include 'common/session.php';
+	$user = getSession();
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -15,9 +19,16 @@
 			<nav class="navbar navbar-light bgcolor-primary justify-content-between">
 				<a class="navbar-brand" href="/">RecipeBook</a>
 				<div class="d-flex">
-					<a class="nav-link nav-item" href="/sign_up">Sign up</a>
-					<a class="nav-link nav-item" href="/log_in">Log in</a>
-					<a class="nav-link nav-item" href="/about">About</a>
+					<?php if ($user): ?>
+						<a href="/user/show?id=<?php echo $user['id'] ?>">
+							<img src="<?php echo $user['image_url'] ?>" class="profile-pic border rounded-circle">
+						</a>
+						<a class="nav-link nav-item mt-2" href="/log_out">Log out</a>
+					<?php else: ?>
+						<a class="nav-link nav-item" href="/sign_up">Sign up</a>
+						<a class="nav-link nav-item" href="/log_in">Log in</a>
+						<a class="nav-link nav-item" href="/about">About</a>
+					<?php endif; ?>
 				</div>
 			</nav>
 			<?php if (isset($_GET['error_message'])): ?>
