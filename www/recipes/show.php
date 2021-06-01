@@ -42,6 +42,13 @@
 	} catch (Exception $e) {
 		echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 	}
+	$queryRatings = "SELECT Recipe.created_at, Rating.description, User.name AS 'author_name', Rating.value AS rating FROM Recipe INNER JOIN User ON Recipe.author_id = User.id INNER JOIN Rating ON Rating.recipe_id = Recipe.id where Recipe.id = $auxId";
+	try {
+		$ratings = query($queryRatings);
+		
+	} catch (Exception $e) {
+		echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,7 +57,7 @@
 		<link rel="stylesheet" href="/css/application.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="js/show.js"></script>
+		<script src="https://unpkg.com/feather-icons"></script>
 		<title>RecipeBook</title>
 	</head>
 	<body class="bgcolor-secondary">
@@ -98,6 +105,29 @@
 					</div>
 			<?php endwhile; ?>
 			</ol>
+			<?php while ($row = $ratings->fetch_array()): ?>
+						<div class="border border-white rounded w-100 mt-4 p-2">
+							<div class="d-flex">
+								<a id="recipeAuthorImage">
+									<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="profile-pic border rounded-circle m-4">
+								</a>
+								<div class="w-100">
+									<div class="d-flex flex-row w-100">
+									<div class="ml-auto mr-4">
+										<?php for ($i=0; $i < floor($row["rating"]); $i++): ?>
+											<i data-feather='star' fill="yellow" class="text-yellow"></i>
+										<?php endfor; ?>
+									</div>
+									</div>
+									<strong>By: <span><?php echo $row['author_name']; ?></span></strong><br>
+									<small id="recipeCreatedAt"><?php echo $row['created_at']; ?></small>
+								</div>
+							</div>
+							<p class="m-2" id="recipeDescription"><?php echo $row['description'] ; ?></p>
+							
+							
+						</div>
+					<?php endwhile; ?>
 			<form class="border border-light p-4 mt-5">
 				<input type="hidden" id="author_id">
 				<h3>Leave a Rating</h3>
@@ -130,6 +160,7 @@
 					<button type="submit" class="btn btn-primary mt-2">Submit</button>
 				</div>
 			</form>
+			
 		</main>
 	</body>
 	<template id="stepTemplate">
@@ -140,6 +171,9 @@
 			</div>
 		</div>
 	</template>
+	<script>
+      feather.replace()
+    </script>
 </html>
 <?php else: ?>
 <?php
