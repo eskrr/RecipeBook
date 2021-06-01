@@ -18,6 +18,7 @@ user_cols = ["name", "description", "email", "password"]
 recipe_cols = ["author_id", "name", "description"]
 ingredient_cols = ["recipe_id", "name", "quantity", "unit"]
 step_cols = ["recipe_id", "description", "image_url"]
+rating_cols = ["recipe_id", "value", "description"]
 
 
 def create_connection():
@@ -85,3 +86,6 @@ if __name__ == "__main__":
             for step in recipe['steps']:
                 step_id = insert_object(db, 'Step', step, step_cols, recipe_id, True)
                 print('Step id:', step_id)
+            for rating in recipe['ratings']:
+                rating_id = insert_object(db, 'Rating', rating, rating_cols, recipe_id, True)
+                print('Rating id:', rating_id)

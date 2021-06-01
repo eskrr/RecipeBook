@@ -20,11 +20,14 @@
 					<a class="nav-link nav-item" href="/about.html">About</a>
 				</div>
 			</nav>
+			<?php if (isset($_GET['error_message'])): ?>
+				<div class="alert alert-warning" role="alert">
+					<?php echo $_GET['error_message'] ?>
+				</div>
+			<?php endif; ?>
 		</header>
 		<main class="m-4 text-center">
-			<h1 id="titleHome">¡Cocina las mejores recetas, cuando quieras!
-				<?php echo '<p>Hola Mundo</p>'; ?>
-			</h1>
+			<h1 id="titleHome">¡Cocina las mejores recetas, cuando quieras!</h1>
 			<div class="secciones">
 				<div class="container border rounded" style="background-color:#A593BA;">
 					<div class="titleAndSubtitle">

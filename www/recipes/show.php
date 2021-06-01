@@ -1,43 +1,48 @@
 <?php if(isset($_GET['id'])): ?>
-	<?php
-		include("../query.php");
-		//echo 'si HAY ID: ', $_GET['id'];
+<?php
+	include("../query.php");
+	//echo 'si HAY ID: ', $_GET['id'];
+	
+	//Declaración de variables
+	$auxId = $_GET['id'];
+	$queryRecipe = "SELECT Recipe.id, Recipe.name, Recipe.created_at, Recipe.description, User.name AS 'author_name' FROM Recipe INNER JOIN User ON Recipe.author_id = User.id where Recipe.id = $auxId";
+	$receta = array();
+	$autor = array();
+	$ingredientes = array();
+	$pasos = array();
+
+	//Query para receta
+	try {
+		$recipe = query($queryRecipe);
 		
-		//Declaración de variables
-		$auxId = $_GET['id'];
-		$queryRecipe = "SELECT Recipe.id, Recipe.name, Recipe.created_at, Recipe.description, User.name AS 'author_name' FROM Recipe INNER JOIN User ON Recipe.author_id = User.id where Recipe.id = $auxId";
-		$receta = array();
-		$autor = array();
-		$ingredientes = array();
-		$pasos = array();
+	} catch (Exception $e) {
+		header("Location: /?error_message=$e->getMessage()");
+		exit();
+	}
+	if($fila = $recipe->fetch_assoc()){
+		$receta = $fila;
+	} else {
+		$error_message = "Recipe not found.";
+		header("Location: /?error_message=$error_message");
+		exit();
+	}
 
-		//Query para receta
-		try {
-			$recipe = query($queryRecipe);
-			
-		} catch (Exception $e) {
-			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-		}
-		if($fila = $recipe->fetch_assoc()){
-			$receta = $fila;
-		}
-
-		//Query para ingredientes
-		$queryIngredients = "SELECT * FROM Ingredient where recipe_id=".$receta["id"];
-		try {
-			$ingredients = query($queryIngredients);
-			
-		} catch (Exception $e) {
-			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-		}
-		$querySteps = "SELECT * FROM Step where recipe_id=".$receta["id"];
-		try {
-			$steps = query($querySteps);
-			
-		} catch (Exception $e) {
-			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-		}
-	?>
+	//Query para ingredientes
+	$queryIngredients = "SELECT * FROM Ingredient where recipe_id=".$receta["id"];
+	try {
+		$ingredients = query($queryIngredients);
+		
+	} catch (Exception $e) {
+		echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+	}
+	$querySteps = "SELECT * FROM Step where recipe_id=".$receta["id"];
+	try {
+		$steps = query($querySteps);
+		
+	} catch (Exception $e) {
+		echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -137,8 +142,9 @@
 	</template>
 </html>
 <?php else: ?>
-	<?php
-		header("Location: /home.html");
-		exit();
-	?>
+<?php
+	$error_message = "Url invalido.";
+	header("Location: /?error_message=$error_message");
+	exit();
+?>
 <?php endif; ?>
