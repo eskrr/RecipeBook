@@ -1,12 +1,42 @@
 <?php if(isset($_GET['id'])): ?>
 	<?php
-		echo 'si HAY ID: ', $_GET['id'];
+		include("../query.php");
+		//echo 'si HAY ID: ', $_GET['id'];
+		
+		//Declaración de variables
+		$auxId = $_GET['id'];
+		$queryRecipe = "SELECT Recipe.id, Recipe.name, Recipe.created_at, Recipe.description, User.name AS 'author_name' FROM Recipe INNER JOIN User ON Recipe.author_id = User.id where Recipe.id = $auxId";
+		$receta = array();
+		$autor = array();
+		$ingredientes = array();
+		$pasos = array();
 
-		$RECIPE = array("name" => 'FALAFEL'); // SELECT FROM TABLE WHERE ID = ID
-		// $ingerdientes SELECT FROM INGREDIENTES WHERE RECIPE_ID = ID
-		// $pasos ... 
-		// $usuario ... 1 resultado
-		// $RECIPE['name'] = 'FALAFEL';
+		//Query para receta
+		try {
+			$recipe = query($queryRecipe);
+			
+		} catch (Exception $e) {
+			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
+		if($fila = $recipe->fetch_assoc()){
+			$receta = $fila;
+		}
+
+		//Query para ingredientes
+		$queryIngredients = "SELECT * FROM Ingredient where recipe_id=".$receta["id"];
+		try {
+			$ingredients = query($queryIngredients);
+			
+		} catch (Exception $e) {
+			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
+		$querySteps = "SELECT * FROM Step where recipe_id=".$receta["id"];
+		try {
+			$steps = query($querySteps);
+			
+		} catch (Exception $e) {
+			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
 	?>
 <!DOCTYPE html>
 <html>
@@ -33,17 +63,35 @@
 					<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="profile-pic border rounded-circle m-4">
 				</a>
 				<div class="">
-					<h1 id="recipeName"><?php echo $RECIPE['name']; ?></h1>
-					<strong>By: <span id="recipeAuthorName"></span></strong><br>
-					<small id="recipeCreatedAt"></small>
+					<h1 id="recipeName"><?php echo $receta["name"]; ?></h1>
+					<strong>By: <?php echo $receta["author_name"]; ?><span id="recipeAuthorName"></span></strong><br>
+					<small id="recipeCreatedAt"><?php echo $receta["created_at"]; ?></small>
 				</div>
 			</div>
 			<p class="mt-5" id="recipeDescription"></p>
 			<h3>Ingredients:</h3>
 			<ul id="recipeIngredients">
+			<?php while ($row = $ingredients->fetch_array()): ?>
+				<li><strong><?php echo $row["name"]; ?></strong>: <?php echo $row["quantity"]," ",$row["unit"]; ?></li>
+			<?php endwhile; ?>
 			</ul>
 			<h3>Steps:</h3>
 			<ol id="recipeSteps">
+			<?php while ($row = $steps->fetch_array()): ?>
+					<div class="d-flex mt-4 ingredient">
+						<li id="stepDescription">
+							<?php echo $row["description"]; ?>
+						</li>
+						<?php if (strlen($row["image_url"]) > 0): ?>
+							<div id="stepImage">
+							<img class="step-image border rounded m-4" src="<?php echo $row['image_url']; ?>">
+
+							</div>
+						<?php endif; ?>
+						
+
+					</div>
+			<?php endwhile; ?>
 			</ol>
 			<form class="border border-light p-4 mt-5">
 				<input type="hidden" id="author_id">
@@ -89,7 +137,8 @@
 	</template>
 </html>
 <?php else: ?>
-	<?php 
-		echo 'no hay id redireccionar a home.';
+	<?php
+		header("Location: /home.html");
+		exit();
 	?>
 <?php endif; ?>
