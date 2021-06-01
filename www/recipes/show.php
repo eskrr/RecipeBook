@@ -98,36 +98,38 @@
 					</div>
 			<?php endwhile; ?>
 			</ol>
-			<form class="border border-light p-4 mt-5">
-				<input type="hidden" id="author_id">
+			<form class="border border-light p-4 mt-5" action="/ratings/create.php" method="post">
+				<input type="hidden" name="author_id" id="author_id" value="1">
+				<input type="hidden" name = "recipe_id" id="recipe_id" value="1">
 				<h3>Leave a Rating</h3>
+				<h2 id = "confirmationRating"></h2>
 				<div class="form-group">
 					<label for="exampleFormControlTextarea1">Description: </label>
-					<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+					<textarea class="form-control" name="exampleFormControlTextarea1" id="exampleFormControlTextarea1" rows="3"></textarea>
 				  </div>
 				<label for="nombre">Rating: </label><br>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
 					<label class="form-check-label" for="inlineRadio1">1</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
 					<label class="form-check-label" for="inlineRadio2">2</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="3">
 					<label class="form-check-label" for="inlineRadio2">3</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="4">
 					<label class="form-check-label" for="inlineRadio2">4</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="5" checked>
 					<label class="form-check-label" for="inlineRadio2">5</label>
 				</div>
 				<div class="center">
-					<button type="submit" class="btn btn-primary mt-2">Submit</button>
+					<button type="submit" class="btn btn-primary mt-2", id = "buttonRating">Submit</button>
 				</div>
 			</form>
 		</main>
