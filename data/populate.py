@@ -18,7 +18,7 @@ user_cols = ["name", "description", "email", "password"]
 recipe_cols = ["author_id", "name", "description"]
 ingredient_cols = ["recipe_id", "name", "quantity", "unit"]
 step_cols = ["recipe_id", "description", "image_url"]
-rating_cols = ["recipe_id", "value", "description"]
+rating_cols = ["user_id", "recipe_id", "value", "description"]
 
 
 def create_connection():
@@ -54,9 +54,9 @@ def get_column_values(object, columns):
     return values
 
 
-def insert_object(db, table, object, columns, parent_id = None, execute = False):
+def insert_object(db, table, object, columns, parent_ids = [], execute = False):
     values = get_column_values(object, columns)
-    if parent_id:
+    for parent_id in parent_ids:
         values.insert(0, str(parent_id))
     query = insert_query.format(table, ','.join(columns), ','.join(values))
 
@@ -75,17 +75,17 @@ if __name__ == "__main__":
     db = create_connection()
 
     for user in users:
-        user_id = insert_object(db, 'User', user, user_cols, None, True)
+        user_id = insert_object(db, 'User', user, user_cols, [], True)
         print('User id:', user_id)
         for recipe in user['recipes']:
-            recipe_id = insert_object(db, 'Recipe', recipe, recipe_cols, user_id, True)
+            recipe_id = insert_object(db, 'Recipe', recipe, recipe_cols, [user_id], True)
             print('Recipe id:', recipe_id)
             for ingredient in recipe['ingredients']:
-                ingredient_id = insert_object(db, 'Ingredient', ingredient, ingredient_cols, recipe_id, True)
+                ingredient_id = insert_object(db, 'Ingredient', ingredient, ingredient_cols, [recipe_id], True)
                 print('Ingredient id:', ingredient_id)
             for step in recipe['steps']:
-                step_id = insert_object(db, 'Step', step, step_cols, recipe_id, True)
+                step_id = insert_object(db, 'Step', step, step_cols, [recipe_id], True)
                 print('Step id:', step_id)
             for rating in recipe['ratings']:
-                rating_id = insert_object(db, 'Rating', rating, rating_cols, recipe_id, True)
+                rating_id = insert_object(db, 'Rating', rating, rating_cols, [recipe_id, user_id], True)
                 print('Rating id:', rating_id)

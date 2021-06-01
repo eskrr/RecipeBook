@@ -352,6 +352,20 @@
 						"description": "Add Sugar, Cinnamon, Fruit of your choice and Almonds. Mix the ingredients and enjoy.",
 						"image_url": "https://feelgoodfoodie.net/wp-content/uploads/2018/12/Easy-Overnight-Oats-8.jpg"
 					}
+				],
+				"ratings": [
+					{
+						"value": "2",
+						"description": "A lot of fat for my taste, delicious but not healthy, good idea for a roast beef."
+					},
+					{
+						"value": "5",
+						"description": "Delicious, the best Hot Dog Chili I have ever had. It was a bit laborious but it made my mouth water when I was preparing it."
+					},
+					{
+						"value": "5",
+						"description": "Thanks to this recipe, now everyone thinks that I can cook very well, I left my guests in awe of these delicious hot dogs"
+					}
 				]
 			}
 		]
