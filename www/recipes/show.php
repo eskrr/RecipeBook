@@ -1,3 +1,13 @@
+<?php if(isset($_GET['id'])): ?>
+	<?php
+		echo 'si HAY ID: ', $_GET['id'];
+
+		$RECIPE = array("name" => 'FALAFEL'); // SELECT FROM TABLE WHERE ID = ID
+		// $ingerdientes SELECT FROM INGREDIENTES WHERE RECIPE_ID = ID
+		// $pasos ... 
+		// $usuario ... 1 resultado
+		// $RECIPE['name'] = 'FALAFEL';
+	?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -23,7 +33,7 @@
 					<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="profile-pic border rounded-circle m-4">
 				</a>
 				<div class="">
-					<h1 id="recipeName"></h1>
+					<h1 id="recipeName"><?php echo $RECIPE['name']; ?></h1>
 					<strong>By: <span id="recipeAuthorName"></span></strong><br>
 					<small id="recipeCreatedAt"></small>
 				</div>
@@ -34,7 +44,6 @@
 			</ul>
 			<h3>Steps:</h3>
 			<ol id="recipeSteps">
-				<!-- /  for each step render html template -->
 			</ol>
 			<form class="border border-light p-4 mt-5">
 				<input type="hidden" id="author_id">
@@ -79,3 +88,8 @@
 		</div>
 	</template>
 </html>
+<?php else: ?>
+	<?php 
+		echo 'no hay id redireccionar a home.';
+	?>
+<?php endif; ?>
