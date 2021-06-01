@@ -1,6 +1,23 @@
 <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
 	<?php
-		echo 'HANDLE USER CREATION FROM $_POST PARAMETERS';
+		include ("query.php");
+
+		$nombre			= $_POST["nombre"];
+		$description	= $_POST["description"];
+		$email       	= $_POST["email"];
+		$password  		= $_POST["password"];
+
+		$consulta = "INSERT INTO User (`name`, `description`, `email`, `password`) VALUES ('$nombre', '$description', '$email', '$password')";
+
+		try {
+			$result = query($consulta);
+			if($result)
+				echo "<br><br> Datos guardados.";
+		} catch (Exception $e) {
+			echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		}
+
+
 	?>
 <?php else: ?>
 <!DOCTYPE html>
@@ -47,26 +64,30 @@
 				<h1 class="text-center">Register</h1>
 				<div class="form-group">
 					<label for="nombre">Complete Name</label>
-					<input type="text" class="form-control" id="nombre" placeholder="Name(s) Last Name">
+					<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Name(s) Last Name">
+				</div>
+				<div class="form-group">
+					<label for="description">Description</label>
+					<input type="text" class="form-control" name="description" id="description" placeholder="Something about you...">
 				</div>
 				<!-- <div>
 					<p>Birthdate: <input type="text" id="datepicker"></p>
 				</div> -->
 				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" class="form-control" id="password" placeholder="Password">
-				</div>
-				<div class="form-group">
-					<label for="password_confirmation">Confirm Password</label>
-					<input type="password" class="form-control" id="password_confirmation" placeholder="Password">
-				</div>
-				<div class="form-group">
 					<label for="email">Email address</label>
-					<input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+					<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
 				</div>
 				<div class="form-group">
 					<label for="email_confirmation">Confirm Email address</label>
 					<input type="email" class="form-control" id="email_confirmation" aria-describedby="emailHelp" placeholder="Enter email">
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" name="password" id="password" placeholder="Password">
+				</div>
+				<div class="form-group">
+					<label for="password_confirmation">Confirm Password</label>
+					<input type="password" class="form-control" id="password_confirmation" placeholder="Password">
 				</div>
 				<!-- <div class="form-group">
 					<label for="image">Choose Profile Picture</label>
