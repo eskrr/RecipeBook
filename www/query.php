@@ -1,19 +1,17 @@
 <?php
-	function query() {
+	function query($q) {
 		$mysqli = new mysqli("db", "root", "test", "RecipeBook");
 		if ($mysqli->connect_errno) {
-		    // echo "Falló la conexión con MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-		    return false;
+		    throw new Exception('Error de conexion a la Base de Datos.');
 		}
 
-		$q = 'SELECT email, password FROM User WHERE email = "2@gmail.com"';
+		$result = $mysqli->query($q);
 
-		$resultado = $mysqli->query($q);
-			// while ($fila = $resultado->fetch_assoc()) {
-		 //        printf ("%s (%s)\n", $fila["email"], $fila["password"]);
-		 //    }
-		 //    /* liberar el conjunto de resultados */
-		 //    $resultado->close();
-		return $resultado;
+		if (!$result)
+			throw new Exception($mysqli->error);
+
+		$mysqli->close();
+
+		return $result;
 	}
 ?>
