@@ -1,6 +1,10 @@
 $(document).ready(function() {
   $('#addIngredient').click(function() {
+    console.log("YIH");
+    console.log($('.ingredient').length);
     let ingredientTemplate = $($('#ingredientForm').html());
+
+
     $('#ingredients').append(ingredientTemplate);
     feather.replace();
   });

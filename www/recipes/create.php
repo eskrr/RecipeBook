@@ -1,11 +1,21 @@
 <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
 	<?php
-		include ("query.php");
+		include ("../query.php");
 
-		echo 'CREANDO';
+		// echo 'CREANDO';
 
-		// $nombre			= $_POST["nombre"];
-		// $description	= $_POST["description"];
+		$nombre			= $_POST["name"];
+		$description	= $_POST["description"];
+
+		// echo $nombre, ": ", $description, "\n";
+
+		// echo var_dump($_POST["ingredients"]);
+
+		foreach ($_POST["ingredients"] as &$ingredient) {
+		    echo $ingredient['name'], "\n";
+		    echo $ingredient['quantity'], "\n";
+		    echo $ingredient['unit'], "\n";
+		}
 		// $email       	= $_POST["email"];
 		// $password  		= $_POST["password"];
 
@@ -44,15 +54,15 @@
 		</header>
 		<main class="m-4">
 			<h1>New recipe</h1>
-			<form class="m-4">
+			<form class="m-4" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 				<input type="hidden" id="author_id" value="">
 				<div class="form-group">
 					<label for="name">Name</label>
-					<input required type="text" class="form-control" id="name" placeholder="Recipe name ...">
+					<input required type="text" class="form-control" id="name" placeholder="Recipe name ..." name="name">
 				</div>
 				<div class="form-group">
 				    <label for="description">Description</label>
-				    <textarea class="form-control" id="description" rows="3"></textarea>
+				    <textarea class="form-control" id="description" rows="3" name="description"></textarea>
 			    </div>
 			    <div class="d-flex">
 			    	<h3 class="mr-4">Ingredients</h3>
@@ -62,16 +72,16 @@
 				    <div class="ingredient border border-light rounded m-4 p-4 d-flex">
 				    	<div class="w-50">
 							<div class="form-group d-flex">
-								<label for="ingredientName">Name</label>
-								<input required type="text" class="form-control ml-4" id="ingredientName" placeholder="Ingredient name ...">
+								<label for="ingredients[0][name]">Name</label>
+								<input required type="text" class="form-control ml-4" id="ingredients[0][name]" name="ingredients[0][name]" placeholder="Ingredient name ...">
 							</div>
 							<div class="form-group d-flex">
-								<label for="ingredientQuantity">Quantity</label>
-								<input required type="text" class="form-control ml-4" id="ingredientQuantity" placeholder="Ingredient Quantity ...">
+								<label for="ingredients[0][quantity]">Quantity</label>
+								<input required type="text" class="form-control ml-4" id="ingredients[0][quantity]" name="ingredients[0][quantity]" placeholder="Ingredient Quantity ...">
 							</div>
 							<div class="form-group d-flex">
-								<label for="ingredientUnit">Unit</label>
-								<select class="form-control ml-4" id="ingredientUnit">
+								<label for="ingredients[0][unit]">Unit</label>
+								<select class="form-control ml-4" id="ingredients[0][unit]" name="ingredients[0][unit]">
 									<option>cups</option>
 									<option>liters</option>
 									<option>grams</option>
@@ -82,7 +92,7 @@
 						</div>
 				    </div>
 				</div>
-			    <div class="d-flex">
+			    <!-- <div class="d-flex">
 			    	<h3 class="mr-4">Steps</h3>
 					<i id="addStep" data-feather="plus" class="border border-success rounded bg-success text-white clickable"></i>
 			    </div>
@@ -100,7 +110,7 @@
 							<input type="file" accept="image/*" class="form-control-file" id="stepImage">
 						</div>
 				    </div>
-				</div>
+				</div> -->
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</main>

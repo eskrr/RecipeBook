@@ -60,10 +60,10 @@
 			<form class="border border-light" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
 				<h3 class="text-center">RecipeBook</h3>
 				<div class="form-group">
-				  <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email address">
+				  <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email address" required>
 				</div>
 				<div class="form-group">
-				  <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+				  <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
 				</div>
 				<div class="center">
 					<button type="submit" class="btn btn-primary">Submit</button>

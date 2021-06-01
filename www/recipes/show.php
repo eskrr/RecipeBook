@@ -155,7 +155,11 @@
 					<label class="form-check-label" for="inlineRadio2">4</label>
 				</div>
 				<div class="form-check form-check-inline">
+<<<<<<< Updated upstream
 					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="5" checked>
+=======
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="5">
+>>>>>>> Stashed changes
 					<label class="form-check-label" for="inlineRadio2">5</label>
 				</div>
 				<div class="center">
