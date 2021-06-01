@@ -54,7 +54,7 @@
 	} catch (Exception $e) {
 		echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 	}
-	$queryRatings = "SELECT Recipe.created_at, Rating.description, User.name AS 'author_name', Rating.value AS rating FROM Recipe INNER JOIN User ON Recipe.author_id = User.id INNER JOIN Rating ON Rating.recipe_id = Recipe.id where Recipe.id = $auxId";
+	$queryRatings = "SELECT Rating.created_at, Rating.description, User.name AS 'author_name', Rating.value AS rating FROM User INNER JOIN Rating ON Rating.user_id = User.id where Rating.Recipe_id = $auxId";
 	try {
 		$ratings = query($db, $queryRatings);
 		
