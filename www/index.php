@@ -13,11 +13,11 @@
 	<body class="bgcolor-secondary">
 		<header class="bgcolor-primary">
 			<nav class="navbar navbar-light bgcolor-primary justify-content-between">
-				<a class="navbar-brand" href="/home.html">RecipeBook</a>
+				<a class="navbar-brand" href="/">RecipeBook</a>
 				<div class="d-flex">
-					<a class="nav-link nav-item" href="/user/create.html">Sign up</a>
-					<a class="nav-link nav-item" href="/log_in.html">Log in</a>
-					<a class="nav-link nav-item" href="/about.html">About</a>
+					<a class="nav-link nav-item" href="/sign_up">Sign up</a>
+					<a class="nav-link nav-item" href="/log_in">Log in</a>
+					<a class="nav-link nav-item" href="/about">About</a>
 				</div>
 			</nav>
 			<?php if (isset($_GET['error_message'])): ?>

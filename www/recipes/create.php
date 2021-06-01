@@ -1,36 +1,58 @@
 <?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
-	<?php
-		include ("../query.php");
+<?php
+	include ("../query.php");
 
-		// echo 'CREANDO';
+	$db = db();
 
-		$nombre			= $_POST["name"];
-		$description	= $_POST["description"];
+	$author_id		= $_POST["author_id"];
+	$name			= $_POST["name"];
+	$description	= $_POST["description"];
 
-		// echo $nombre, ": ", $description, "\n";
+	$recipeInsertQ = "INSERT INTO Recipe (author_id, name, description) VALUES ($author_id, '$name', '$description')";
 
-		// echo var_dump($_POST["ingredients"]);
+	try {
+		query($db, $recipeInsertQ);
+	} catch (Exception $e) {
+		$error_message = $e->getMessage();
+		header("Location: /recipes/create?error_message=$error_message");
+		exit();
+	}
 
-		foreach ($_POST["ingredients"] as &$ingredient) {
-		    echo $ingredient['name'], "\n";
-		    echo $ingredient['quantity'], "\n";
-		    echo $ingredient['unit'], "\n";
+	$recipe_id = $db->insert_id;
+
+	foreach ($_POST["ingredients"] as &$ingredient) {
+		$name			= $ingredient["name"];
+		$quantity		= $ingredient["quantity"];
+		$unit			= $ingredient["unit"];
+
+		$ingredientInsertQ = "INSERT INTO Ingredient (recipe_id, name, quantity, unit) VALUES ($recipe_id, '$name', '$quantity', '$unit')";
+		try {
+			query($db, $ingredientInsertQ);
+		} catch (Exception $e) {
+			$error_message = $e->getMessage();
+			header("Location: /recipes/create?error_message=$error_message");
+			exit();
 		}
-		// $email       	= $_POST["email"];
-		// $password  		= $_POST["password"];
+	}
 
-		// $consulta = "INSERT INTO User (`name`, `description`, `email`, `password`) VALUES ('$nombre', '$description', '$email', '$password')";
+	foreach ($_POST["steps"] as &$step) {
+		$description	= $step["description"];
+		$image_url		= $step["image_url"];
 
-		// try {
-		// 	$result = query($consulta);
-		// 	if($result)
-		// 		echo "<br><br> Datos guardados.";
-		// } catch (Exception $e) {
-		// 	echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-		// }
+		$ingredientInsertQ = "INSERT INTO Step (recipe_id, description, image_url) VALUES ($recipe_id, '$description', '$image_url')";
+		try {
+			query($db, $ingredientInsertQ);
+		} catch (Exception $e) {
+			$error_message = $e->getMessage();
+			header("Location: /recipes/create?error_message=$error_message");
+			exit();
+		}
+	}
 
-
-	?>
+	$db->close();
+	header("Location: /recipes/show?id=$recipe_id");
+	exit();
+?>
 <?php else: ?>
 <!DOCTYPE html>
 <html>
@@ -51,11 +73,16 @@
 					<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" class="profile-pic border rounded-circle">
 				</a>
 			</nav>
+			<?php if (isset($_GET['error_message'])): ?>
+				<div class="alert alert-warning" role="alert">
+					<?php echo $_GET['error_message'] ?>
+				</div>
+			<?php endif; ?>
 		</header>
 		<main class="m-4">
 			<h1>New recipe</h1>
 			<form class="m-4" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-				<input type="hidden" id="author_id" value="">
+				<input type="hidden" id="author_id" name="author_id" value="1">
 				<div class="form-group">
 					<label for="name">Name</label>
 					<input required type="text" class="form-control" id="name" placeholder="Recipe name ..." name="name">
@@ -92,7 +119,7 @@
 						</div>
 				    </div>
 				</div>
-			    <!-- <div class="d-flex">
+			    <div class="d-flex">
 			    	<h3 class="mr-4">Steps</h3>
 					<i id="addStep" data-feather="plus" class="border border-success rounded bg-success text-white clickable"></i>
 			    </div>
@@ -102,62 +129,19 @@
 		    				<h4>Step <span class="stepNum">0</span></h4>
 						</div>
 						<div class="form-group">
-						    <label for="description">Description</label>
-						    <textarea class="form-control w-100" id="description" rows="3"></textarea>
+						    <label for="steps[0][description]">Description</label>
+						    <textarea class="form-control w-100" id="steps[0][description]" rows="3" name="steps[0][description]"></textarea>
 					    </div>
 						<div class="form-group">
-							<label for="stepImage">Image</label>
-							<input type="file" accept="image/*" class="form-control-file" id="stepImage">
+							<label for="steps[0][image_url]">Image</label>
+							<input type="url" class="form-control ml-4" id="steps[0][image_url]" name="steps[0][image_url]" placeholder="www.image.com/image.png">
 						</div>
 				    </div>
-				</div> -->
+				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</main>
 	</body>
-	<template id="ingredientForm">
-	    <div class="ingredient border border-light rounded m-4 p-4 d-flex">
-	    	<div class="w-50">
-				<div class="form-group d-flex">
-					<label for="ingredientName">Name</label>
-					<input required type="text" class="form-control ml-4" id="ingredientName" placeholder="Ingredient name ...">
-				</div>
-				<div class="form-group d-flex">
-					<label for="ingredientQuantity">Quantity</label>
-					<input required type="text" class="form-control ml-4" id="ingredientQuantity" placeholder="Ingredient Quantity ...">
-				</div>
-				<div class="form-group d-flex">
-					<label for="ingredientUnit">Unit</label>
-					<select class="form-control ml-4" id="ingredientUnit">
-						<option>cups</option>
-						<option>liters</option>
-						<option>grams</option>
-						<option>pieces</option>
-						<option>kilograms</option>
-					</select>
-				</div>
-			</div>
-			<div class="w-50 flex-row-reverse d-flex">
-				<i data-feather="trash" class="removeIngredient border border-danger rounded bg-danger text-white clickable"></i>
-			</div>
-	    </div>
-	</template>
-	<template id="stepForm">
-	    <div class="step border border-light rounded m-4 p-4">
-			<div class="d-flex justify-content-between">
-		    	<h4>Step <span class="stepNum"></span></h4>
-				<i data-feather="trash" class="removeStep border border-danger rounded bg-danger text-white clickable"></i>
-			</div>
-			<div class="form-group">
-			    <label for="description">Description</label>
-			    <textarea class="form-control w-100" id="description" rows="3"></textarea>
-		    </div>
-			<div class="form-group">
-				<label for="stepImage">Image</label>
-				<input type="file" accept="image/*" class="form-control-file" id="stepImage">
-			</div>
-	    </div>
-	</template>
 	<script>
       feather.replace()
     </script>

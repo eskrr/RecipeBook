@@ -11,9 +11,11 @@
 	$ingredientes = array();
 	$pasos = array();
 
+	$db = db();
+
 	//Query para receta
 	try {
-		$recipe = query($queryRecipe);
+		$recipe = query($db, $queryRecipe);
 		
 	} catch (Exception $e) {
 		header("Location: /?error_message=$e->getMessage()");
@@ -30,25 +32,27 @@
 	//Query para ingredientes
 	$queryIngredients = "SELECT * FROM Ingredient where recipe_id=".$receta["id"];
 	try {
-		$ingredients = query($queryIngredients);
+		$ingredients = query($db, $queryIngredients);
 		
 	} catch (Exception $e) {
 		echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 	}
 	$querySteps = "SELECT * FROM Step where recipe_id=".$receta["id"];
 	try {
-		$steps = query($querySteps);
+		$steps = query($db, $querySteps);
 		
 	} catch (Exception $e) {
 		echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 	}
 	$queryRatings = "SELECT Recipe.created_at, Rating.description, User.name AS 'author_name', Rating.value AS rating FROM Recipe INNER JOIN User ON Recipe.author_id = User.id INNER JOIN Rating ON Rating.recipe_id = Recipe.id where Recipe.id = $auxId";
 	try {
-		$ratings = query($queryRatings);
+		$ratings = query($db, $queryRatings);
 		
 	} catch (Exception $e) {
 		echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 	}
+
+	$db->close();
 ?>
 <!DOCTYPE html>
 <html>

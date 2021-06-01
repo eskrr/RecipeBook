@@ -1,16 +1,18 @@
 <?php
-	function query($q) {
+	function db() {
 		$mysqli = new mysqli("db", "root", "test", "RecipeBook");
 		if ($mysqli->connect_errno) {
 		    throw new Exception('Error de conexion a la Base de Datos.');
 		}
 
-		$result = $mysqli->query($q);
+		return $mysqli;
+	}
+
+	function query($db, $q) {
+		$result = $db->query($q);
 
 		if (!$result)
-			throw new Exception($mysqli->error);
-
-		$mysqli->close();
+			throw new Exception($db->error);
 
 		return $result;
 	}
