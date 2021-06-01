@@ -1,3 +1,26 @@
+<?php if($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
+	<?php
+	include 'query.php';
+
+	$query = sprintf('SELECT id, email, password FROM User WHERE email = "%s"', $_POST['email']);
+
+	if ($result = query($query)) {
+		echo 'HAY RESULTADO: ';
+		if ($row = $result->fetch_assoc()) {
+			$pw = hash_hmac('SHA256', $_POST['password'], $_POST['email']);
+			//$pw = hash('sha256', $_POST['password']);
+			if ($pw == $row['password'] && $_POST['email'] == $row['email']) {
+				echo 'CORRECTO';
+				exit();
+			}
+	       // printf ("%s (%s)\n", $row["email"], $row["password"]);
+	    }
+		// liberar el conjunto de resultados */
+		// $result->close();
+	}
+	echo 'NO';
+?>
+<?php else: ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -34,7 +57,7 @@
 			</nav>
 		</header>
 		<main class="m-4">
-			<form class="border border-light" method="post" action="sign_in" onsubmit="return validateForm()">
+			<form class="border border-light" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
 				<h3 class="text-center">RecipeBook</h3>
 				<div class="form-group">
 				  <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email address">
@@ -49,3 +72,4 @@
 		</main>
 	</body>
 </html>
+<?php endif; ?>
